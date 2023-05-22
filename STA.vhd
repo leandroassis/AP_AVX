@@ -9,9 +9,9 @@ entity CLA_4 is
 		co : out STD_LOGIC;
 		z : out STD_LOGIC_VECTOR(3 downto 0)
 	);
-end CLA_32;
+end CLA_4;
 
-architecture Behavioral of CLA_32 is
+architecture Behavioral of CLA_4 is
 	signal carrys : STD_LOGIC_VECTOR(4 downto 0) := (others => '0');
 	signal p : STD_LOGIC_VECTOR(3 downto 0) := (others => '0');
 	signal g : STD_LOGIC_VECTOR(3 downto 0) := (others => '0');
@@ -69,7 +69,7 @@ end component CLA_4;
 				when "00" =>
 					8ints: for 0 to 7 loop
 						CLA_4 port map(A_i(4*(i+1)-1 downto 4*i), B_i(4*(i+1)-1 downto 4*i), carrys(0), carrys(i+1), saida(4*(i+1)-1 downto 4*i));
-					end loop
+					end loop;
 					
 				when "01" =>
 					4ints: for 0 to 3 loop
