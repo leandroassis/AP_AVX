@@ -27,10 +27,10 @@ architecture Behavioral of STA_teste is
         process
             begin
                 for i in 555555530 to 555555555 loop
-                    A <= std_logic_vector(to_unsigned(i, 32));
-                    B <= std_logic_vector(to_unsigned(i, 32));
+                    A <= std_logic_vector(to_unsigned(867433833, 32));
+                    B <= std_logic_vector(to_unsigned(494984588, 32));
                     mode <= '0';
-                    vecSize <= "00";
+                    vecSize <= "01";
                     wait for 1 ns;
                 end loop;
         end process;
