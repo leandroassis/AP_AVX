@@ -25,13 +25,13 @@ architecture Behavioral of somador_vetorial is
 	
 	signal saida8, saida4, saida2, saida1, B : std_logic_vector(31 downto 0) := (others => '0');
 	signal carrys : std_logic_vector(8 downto 0) := (others => '0'); -- sinal auxiliar 7 downto 0 = carrys, e carrys(0) sempre depende de mode_i
+	signal mode_i_vec : std_logic_vector(31 downto 0) := (others => mode_i);
 	
 	begin
 	
 	-- inverte B_i e soma 1 se mode_i = 1, se não B_i = B_i
-	B <= (B_i xor mode_i);
+	B <= (B_i xor mode_i_vec);
 	carrys(0) <= mode_i;
-
 	
 
 	ints_8: for i in 0 to 7 generate
