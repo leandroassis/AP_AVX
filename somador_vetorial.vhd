@@ -23,16 +23,13 @@ architecture Behavioral of somador_vetorial is
 		);
 	end component CLA_4;
 	
-	signal saida8, saida4, saida2, saida1, B : std_logic_vector(31 downto 0) := (others => '0');
+	signal B, saida8, saida4, saida2, saida1 : std_logic_vector(31 downto 0) := (others => '0');
 	signal carrys : std_logic_vector(8 downto 0) := (others => '0'); -- sinal auxiliar 7 downto 0 = carrys, e carrys(0) sempre depende de mode_i
-	signal mode_i_vec : std_logic_vector(31 downto 0) := (others => mode_i);
 	
 	begin
 	
-	-- inverte B_i e soma 1 se mode_i = 1, se não B_i = B_i
-	B <= (B_i xor mode_i_vec);
+	-- carry (0) = 1 se mode_i = 0
 	carrys(0) <= mode_i;
-	
 
 	ints_8: for i in 0 to 7 generate
 		adder0to7: CLA_4 port map(A_i(4*(i+1)-1 downto 4*i), B(4*(i+1)-1 downto 4*i), carrys(0), carrys(i+1), saida8(4*(i+1)-1 downto 4*i));
@@ -55,7 +52,7 @@ architecture Behavioral of somador_vetorial is
 		adder24to30: CLA_4 port map(A_i(4*(i+1)-1 downto 4*i), B(4*(i+1)-1 downto 4*i), carrys(i), carrys(i+1), saida1(4*(i+1)-1 downto 4*i));
 	end generate;
 	
-	process(vecSize_i, saida1, saida2, saida4, saida8) is
+	process(vecSize_i, saida8, saida4, saida2, saida1, mode_i) is
 		begin
 			case vecSize_i is
 				when "00" =>
@@ -69,5 +66,12 @@ architecture Behavioral of somador_vetorial is
 				when others =>
 					S_o <= (others => 'Z');
 			end case;
+			
+			--inverte B_i e soma 1 se mode_i = 1, se não B_i = B_i
+			if mode_i = '0' then
+				B <= B_i;
+			elsif mode_i = '1' then
+				B <= not B_i;
+			end if;
 	end process;
 end Behavioral;
