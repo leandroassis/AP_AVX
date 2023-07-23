@@ -288,8 +288,9 @@ architecture Behavioral of somador_vetorial is
 				B &lt;= not B_i;
 			end if;
 	end process;
-end Behavioral;</vhdl>
-  <vhdl name="CLA_4">LIBRARY ieee;
+end Behavioral;
+
+LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 
 entity CLA_4 is
